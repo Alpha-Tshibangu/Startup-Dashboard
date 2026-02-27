@@ -23,25 +23,21 @@ import {
   ChartTooltipContent
 } from '@/components/ui/chart';
 import { fundingRoundsData } from '@/lib/startup-metrics-data';
-import { IconEye } from '@tabler/icons-react';
-import { Button } from '@/components/ui/button';
 
 const chartConfig = {
   amount: {
     label: 'Funding Amount',
-    color: 'hsl(var(--primary))'
+    color: 'hsl(220, 70%, 50%)'
   },
   valuation: {
     label: 'Valuation',
-    color: 'hsl(var(--secondary))'
+    color: 'hsl(45, 70%, 55%)'
   }
 } satisfies ChartConfig;
 
-interface FundingTimelineChartProps {
-  onExpand?: () => void;
-}
+interface FundingTimelineChartProps {}
 
-export function FundingTimelineChart({ onExpand }: FundingTimelineChartProps) {
+export function FundingTimelineChart({}: FundingTimelineChartProps) {
   const totalRaised = fundingRoundsData.reduce(
     (acc, curr) => acc + curr.amount,
     0
@@ -51,17 +47,12 @@ export function FundingTimelineChart({ onExpand }: FundingTimelineChartProps) {
   const multipleX = (latestValuation / totalRaised).toFixed(1);
 
   return (
-    <Card className='col-span-4 md:col-span-3'>
+    <Card>
       <CardHeader className='flex flex-row items-center justify-between pb-2'>
         <div>
           <CardTitle>Funding Timeline</CardTitle>
           <CardDescription>Funding rounds and valuation growth</CardDescription>
         </div>
-        {onExpand && (
-          <Button variant='ghost' size='icon' onClick={onExpand}>
-            <IconEye className='h-4 w-4' />
-          </Button>
-        )}
       </CardHeader>
       <CardContent>
         <div className='mb-4 grid grid-cols-3 gap-4'>
@@ -79,7 +70,9 @@ export function FundingTimelineChart({ onExpand }: FundingTimelineChartProps) {
           </div>
           <div>
             <p className='text-muted-foreground text-sm'>Multiple</p>
-            <p className='text-xl font-bold text-green-600'>{multipleX}x</p>
+            <p className='text-xl font-bold'>
+              <span className='text-green-600'>{multipleX}x</span>
+            </p>
           </div>
         </div>
         <ChartContainer config={chartConfig} className='h-[250px] w-full'>
@@ -103,7 +96,7 @@ export function FundingTimelineChart({ onExpand }: FundingTimelineChartProps) {
               />
               <Bar
                 dataKey='amount'
-                fill='hsl(var(--primary))'
+                fill='var(--color-amount)'
                 radius={[8, 8, 0, 0]}
               />
             </BarChart>

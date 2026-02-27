@@ -24,29 +24,25 @@ import {
   ChartTooltipContent
 } from '@/components/ui/chart';
 import { burnRateData } from '@/lib/startup-metrics-data';
-import { IconEye } from '@tabler/icons-react';
-import { Button } from '@/components/ui/button';
 
 const chartConfig = {
   burn: {
     label: 'Total Burn',
-    color: 'hsl(var(--destructive))'
+    color: 'hsl(220, 70%, 50%)'
   },
   revenue: {
     label: 'Revenue',
-    color: 'hsl(var(--primary))'
+    color: 'hsl(45, 70%, 55%)'
   },
   netBurn: {
     label: 'Net Burn',
-    color: 'hsl(var(--warning))'
+    color: 'hsl(220, 70%, 65%)'
   }
 } satisfies ChartConfig;
 
-interface BurnRateChartProps {
-  onExpand?: () => void;
-}
+interface BurnRateChartProps {}
 
-export function BurnRateChart({ onExpand }: BurnRateChartProps) {
+export function BurnRateChart({}: BurnRateChartProps) {
   const currentBurn = burnRateData[burnRateData.length - 1].burn;
   const currentNetBurn = burnRateData[burnRateData.length - 1].netBurn;
   const avgBurn =
@@ -55,39 +51,32 @@ export function BurnRateChart({ onExpand }: BurnRateChartProps) {
   const runway = 8100000 / currentNetBurn;
 
   return (
-    <Card className='col-span-4 md:col-span-3'>
+    <Card>
       <CardHeader className='flex flex-row items-center justify-between pb-2'>
         <div>
-          <CardTitle>Burn Rate Analysis</CardTitle>
+          <CardTitle>Industry Burn Rate Trends</CardTitle>
           <CardDescription>
-            Monthly burn rate and runway projection
+            Aggregate spend patterns and runway analysis
           </CardDescription>
         </div>
-        {onExpand && (
-          <Button variant='ghost' size='icon' onClick={onExpand}>
-            <IconEye className='h-4 w-4' />
-          </Button>
-        )}
       </CardHeader>
       <CardContent>
         <div className='mb-4 grid grid-cols-3 gap-4'>
           <div>
             <p className='text-muted-foreground text-sm'>Current Burn</p>
-            <p className='text-xl font-bold text-red-600'>
+            <p className='text-xl font-bold'>
               ${(currentBurn / 1000).toFixed(0)}K
             </p>
           </div>
           <div>
             <p className='text-muted-foreground text-sm'>Net Burn</p>
-            <p className='text-xl font-bold text-orange-600'>
+            <p className='text-xl font-bold'>
               ${(currentNetBurn / 1000).toFixed(0)}K
             </p>
           </div>
           <div>
             <p className='text-muted-foreground text-sm'>Runway</p>
-            <p className='text-xl font-bold text-green-600'>
-              {runway.toFixed(0)} mo
-            </p>
+            <p className='text-xl font-bold'>{runway.toFixed(0)} mo</p>
           </div>
         </div>
         <ChartContainer config={chartConfig} className='h-[250px] w-full'>
@@ -112,13 +101,13 @@ export function BurnRateChart({ onExpand }: BurnRateChartProps) {
               <Legend />
               <Bar
                 dataKey='burn'
-                fill='hsl(var(--destructive))'
-                opacity={0.6}
+                fill='var(--color-burn)'
+                opacity={0.8}
                 radius={[4, 4, 0, 0]}
               />
               <Bar
                 dataKey='revenue'
-                fill='hsl(var(--primary))'
+                fill='var(--color-revenue)'
                 radius={[4, 4, 0, 0]}
               />
             </BarChart>

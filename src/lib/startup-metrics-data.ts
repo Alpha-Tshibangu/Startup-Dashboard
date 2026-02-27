@@ -94,15 +94,15 @@ export const customerMetricsData = [
   { month: 'Jan', newCustomers: 125, churned: 18, total: 3420 },
   { month: 'Feb', newCustomers: 145, churned: 22, total: 3543 },
   { month: 'Mar', newCustomers: 168, churned: 25, total: 3686 },
-  { month: 'Apr', newCustomers: 155, churned: 20, total: 3821 },
-  { month: 'May', newCustomers: 172, churned: 28, total: 3965 },
-  { month: 'Jun', newCustomers: 185, churned: 32, total: 4118 },
-  { month: 'Jul', newCustomers: 195, churned: 30, total: 4283 },
-  { month: 'Aug', newCustomers: 188, churned: 35, total: 4436 },
-  { month: 'Sep', newCustomers: 202, churned: 38, total: 4600 },
-  { month: 'Oct', newCustomers: 215, churned: 42, total: 4773 },
-  { month: 'Nov', newCustomers: 225, churned: 45, total: 4953 },
-  { month: 'Dec', newCustomers: 238, churned: 48, total: 5143 }
+  { month: 'Apr', newCustomers: 135, churned: 35, total: 3786 },
+  { month: 'May', newCustomers: 195, churned: 15, total: 3966 },
+  { month: 'Jun', newCustomers: 165, churned: 45, total: 4086 },
+  { month: 'Jul', newCustomers: 225, churned: 25, total: 4286 },
+  { month: 'Aug', newCustomers: 155, churned: 55, total: 4386 },
+  { month: 'Sep', newCustomers: 245, churned: 35, total: 4596 },
+  { month: 'Oct', newCustomers: 185, churned: 65, total: 4716 },
+  { month: 'Nov', newCustomers: 275, churned: 25, total: 4966 },
+  { month: 'Dec', newCustomers: 215, churned: 48, total: 5133 }
 ];
 
 export const fundingRoundsData = [
@@ -113,7 +113,7 @@ export const fundingRoundsData = [
 
 export const marketComparisonData = [
   {
-    company: 'Your Startup',
+    company: 'Case Study',
     revenue: 2850000,
     growth: 25,
     customers: 4250,

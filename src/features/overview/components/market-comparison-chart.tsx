@@ -23,8 +23,6 @@ import {
   ChartTooltipContent
 } from '@/components/ui/chart';
 import { marketComparisonData } from '@/lib/startup-metrics-data';
-import { IconEye } from '@tabler/icons-react';
-import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const radarData = [
@@ -38,42 +36,33 @@ const radarData = [
 
 const chartConfig = {
   yourStartup: {
-    label: 'Your Startup',
-    color: 'hsl(var(--primary))'
+    label: 'Case Study',
+    color: 'hsl(220, 70%, 50%)'
   },
   industryAvg: {
     label: 'Industry Avg',
-    color: 'hsl(var(--secondary))'
+    color: 'hsl(45, 70%, 55%)'
   },
   leader: {
     label: 'Market Leader',
-    color: 'hsl(var(--muted-foreground))'
+    color: 'hsl(220, 70%, 65%)'
   }
 } satisfies ChartConfig;
 
-interface MarketComparisonChartProps {
-  onExpand?: () => void;
-}
+interface MarketComparisonChartProps {}
 
-export function MarketComparisonChart({
-  onExpand
-}: MarketComparisonChartProps) {
+export function MarketComparisonChart({}: MarketComparisonChartProps) {
   const [activeTab, setActiveTab] = React.useState('radar');
 
   return (
-    <Card className='col-span-4'>
+    <Card>
       <CardHeader className='flex flex-row items-center justify-between pb-2'>
         <div>
-          <CardTitle>Market Position Analysis</CardTitle>
+          <CardTitle>Startup Performance Comparison</CardTitle>
           <CardDescription>
-            Competitive benchmarking and market comparison
+            Benchmarking across leading tech startups
           </CardDescription>
         </div>
-        {onExpand && (
-          <Button variant='ghost' size='icon' onClick={onExpand}>
-            <IconEye className='h-4 w-4' />
-          </Button>
-        )}
       </CardHeader>
       <CardContent>
         <Tabs value={activeTab} onValueChange={setActiveTab} className='w-full'>
@@ -91,24 +80,24 @@ export function MarketComparisonChart({
                   <PolarRadiusAxis angle={90} domain={[0, 100]} />
                   <ChartTooltip content={<ChartTooltipContent />} />
                   <Radar
-                    name='Your Startup'
+                    name='Case Study'
                     dataKey='yourStartup'
-                    stroke='hsl(var(--primary))'
-                    fill='hsl(var(--primary))'
+                    stroke='var(--color-yourStartup)'
+                    fill='var(--color-yourStartup)'
                     fillOpacity={0.3}
                   />
                   <Radar
                     name='Industry Avg'
                     dataKey='industryAvg'
-                    stroke='hsl(var(--secondary))'
-                    fill='hsl(var(--secondary))'
+                    stroke='var(--color-industryAvg)'
+                    fill='var(--color-industryAvg)'
                     fillOpacity={0.2}
                   />
                   <Radar
                     name='Market Leader'
                     dataKey='leader'
-                    stroke='hsl(var(--muted-foreground))'
-                    fill='hsl(var(--muted-foreground))'
+                    stroke='var(--color-leader)'
+                    fill='var(--color-leader)'
                     fillOpacity={0.1}
                   />
                 </RadarChart>
@@ -144,9 +133,9 @@ export function MarketComparisonChart({
                       <tr key={index} className='border-b'>
                         <td className='p-2 text-sm font-medium'>
                           {company.company}
-                          {company.company === 'Your Startup' && (
+                          {company.company === 'Case Study' && (
                             <span className='text-primary ml-2 text-xs'>
-                              (You)
+                              (Example)
                             </span>
                           )}
                         </td>
@@ -175,15 +164,17 @@ export function MarketComparisonChart({
               </div>
               <div className='bg-muted/50 grid grid-cols-2 gap-4 rounded-lg border p-4'>
                 <div>
-                  <p className='text-muted-foreground text-sm'>Your Position</p>
+                  <p className='text-muted-foreground text-sm'>
+                    Median Position
+                  </p>
                   <p className='text-lg font-bold'>3rd of 5</p>
                 </div>
                 <div>
                   <p className='text-muted-foreground text-sm'>
-                    Market Opportunity
+                    Growth Potential
                   </p>
                   <p className='text-lg font-bold text-green-600'>
-                    +45% potential
+                    +45% upside
                   </p>
                 </div>
               </div>

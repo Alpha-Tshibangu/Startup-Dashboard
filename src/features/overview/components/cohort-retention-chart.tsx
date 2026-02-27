@@ -9,14 +9,10 @@ import {
   CardTitle
 } from '@/components/ui/card';
 import { cohortRetentionData } from '@/lib/startup-metrics-data';
-import { IconEye } from '@tabler/icons-react';
-import { Button } from '@/components/ui/button';
 
-interface CohortRetentionChartProps {
-  onExpand?: () => void;
-}
+interface CohortRetentionChartProps {}
 
-export function CohortRetentionChart({ onExpand }: CohortRetentionChartProps) {
+export function CohortRetentionChart({}: CohortRetentionChartProps) {
   const getRetentionColor = (value: number) => {
     if (value >= 90) return 'bg-green-500';
     if (value >= 80) return 'bg-green-400';
@@ -30,7 +26,7 @@ export function CohortRetentionChart({ onExpand }: CohortRetentionChartProps) {
   };
 
   return (
-    <Card className='col-span-4'>
+    <Card>
       <CardHeader className='flex flex-row items-center justify-between pb-2'>
         <div>
           <CardTitle>Cohort Retention Analysis</CardTitle>
@@ -38,11 +34,6 @@ export function CohortRetentionChart({ onExpand }: CohortRetentionChartProps) {
             Customer retention by monthly cohort
           </CardDescription>
         </div>
-        {onExpand && (
-          <Button variant='ghost' size='icon' onClick={onExpand}>
-            <IconEye className='h-4 w-4' />
-          </Button>
-        )}
       </CardHeader>
       <CardContent>
         <div className='mb-4'>

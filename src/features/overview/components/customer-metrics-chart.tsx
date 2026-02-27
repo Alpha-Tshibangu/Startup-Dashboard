@@ -24,29 +24,25 @@ import {
   ChartTooltipContent
 } from '@/components/ui/chart';
 import { customerMetricsData } from '@/lib/startup-metrics-data';
-import { IconEye } from '@tabler/icons-react';
-import { Button } from '@/components/ui/button';
 
 const chartConfig = {
   total: {
     label: 'Total Customers',
-    color: 'hsl(var(--primary))'
+    color: 'hsl(220, 70%, 50%)'
   },
   newCustomers: {
     label: 'New Customers',
-    color: 'hsl(var(--success))'
+    color: 'hsl(45, 70%, 55%)'
   },
   churned: {
     label: 'Churned',
-    color: 'hsl(var(--destructive))'
+    color: 'hsl(220, 70%, 65%)'
   }
 } satisfies ChartConfig;
 
-interface CustomerMetricsChartProps {
-  onExpand?: () => void;
-}
+interface CustomerMetricsChartProps {}
 
-export function CustomerMetricsChart({ onExpand }: CustomerMetricsChartProps) {
+export function CustomerMetricsChart({}: CustomerMetricsChartProps) {
   const totalCustomers =
     customerMetricsData[customerMetricsData.length - 1].total;
   const totalNew = customerMetricsData.reduce(
@@ -60,17 +56,14 @@ export function CustomerMetricsChart({ onExpand }: CustomerMetricsChartProps) {
   const avgChurn = ((totalChurned / totalCustomers) * 100).toFixed(1);
 
   return (
-    <Card className='col-span-4'>
+    <Card>
       <CardHeader className='flex flex-row items-center justify-between pb-2'>
         <div>
-          <CardTitle>Customer Acquisition & Retention</CardTitle>
-          <CardDescription>Customer growth and churn metrics</CardDescription>
+          <CardTitle>Industry Customer Trends</CardTitle>
+          <CardDescription>
+            Aggregate acquisition and retention patterns
+          </CardDescription>
         </div>
-        {onExpand && (
-          <Button variant='ghost' size='icon' onClick={onExpand}>
-            <IconEye className='h-4 w-4' />
-          </Button>
-        )}
       </CardHeader>
       <CardContent>
         <div className='mb-4 grid grid-cols-4 gap-4'>
@@ -82,11 +75,17 @@ export function CustomerMetricsChart({ onExpand }: CustomerMetricsChartProps) {
           </div>
           <div>
             <p className='text-muted-foreground text-sm'>New (YTD)</p>
-            <p className='text-2xl font-bold text-green-600'>+{totalNew}</p>
+            <p className='text-2xl font-bold'>
+              <span className='text-white'>+</span>
+              {totalNew}
+            </p>
           </div>
           <div>
             <p className='text-muted-foreground text-sm'>Churned</p>
-            <p className='text-2xl font-bold text-red-600'>-{totalChurned}</p>
+            <p className='text-2xl font-bold'>
+              <span className='text-white'>-</span>
+              {totalChurned}
+            </p>
           </div>
           <div>
             <p className='text-muted-foreground text-sm'>Churn Rate</p>
@@ -100,24 +99,24 @@ export function CustomerMetricsChart({ onExpand }: CustomerMetricsChartProps) {
                 <linearGradient id='totalGradient' x1='0' y1='0' x2='0' y2='1'>
                   <stop
                     offset='0%'
-                    stopColor='hsl(var(--primary))'
+                    stopColor='var(--color-total)'
                     stopOpacity={0.8}
                   />
                   <stop
                     offset='100%'
-                    stopColor='hsl(var(--primary))'
+                    stopColor='var(--color-total)'
                     stopOpacity={0.1}
                   />
                 </linearGradient>
                 <linearGradient id='newGradient' x1='0' y1='0' x2='0' y2='1'>
                   <stop
                     offset='0%'
-                    stopColor='hsl(var(--success))'
+                    stopColor='var(--color-newCustomers)'
                     stopOpacity={0.8}
                   />
                   <stop
                     offset='100%'
-                    stopColor='hsl(var(--success))'
+                    stopColor='var(--color-newCustomers)'
                     stopOpacity={0.1}
                   />
                 </linearGradient>
@@ -128,16 +127,16 @@ export function CustomerMetricsChart({ onExpand }: CustomerMetricsChartProps) {
               <ChartTooltip content={<ChartTooltipContent />} />
               <Legend />
               <Area
-                type='monotone'
+                type='monotoneX'
                 dataKey='total'
-                stroke='hsl(var(--primary))'
+                stroke='var(--color-total)'
                 fill='url(#totalGradient)'
                 strokeWidth={2}
               />
               <Area
-                type='monotone'
+                type='monotoneX'
                 dataKey='newCustomers'
-                stroke='hsl(var(--success))'
+                stroke='var(--color-newCustomers)'
                 fill='url(#newGradient)'
                 strokeWidth={2}
               />

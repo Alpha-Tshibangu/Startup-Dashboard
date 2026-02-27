@@ -24,29 +24,25 @@ import {
   ChartTooltipContent
 } from '@/components/ui/chart';
 import { revenueGrowthData } from '@/lib/startup-metrics-data';
-import { IconEye } from '@tabler/icons-react';
-import { Button } from '@/components/ui/button';
 
 const chartConfig = {
   revenue: {
     label: 'Revenue',
-    color: 'hsl(var(--primary))'
+    color: 'hsl(220, 70%, 50%)'
   },
   target: {
     label: 'Target',
-    color: 'hsl(var(--muted-foreground))'
+    color: 'hsl(45, 70%, 55%)'
   },
   lastYear: {
     label: 'Last Year',
-    color: 'hsl(var(--secondary))'
+    color: 'hsl(220, 70%, 65%)'
   }
 } satisfies ChartConfig;
 
-interface RevenueGrowthChartProps {
-  onExpand?: () => void;
-}
+interface RevenueGrowthChartProps {}
 
-export function RevenueGrowthChart({ onExpand }: RevenueGrowthChartProps) {
+export function RevenueGrowthChart({}: RevenueGrowthChartProps) {
   const totalRevenue = revenueGrowthData.reduce(
     (acc, curr) => acc + curr.revenue,
     0
@@ -59,19 +55,14 @@ export function RevenueGrowthChart({ onExpand }: RevenueGrowthChartProps) {
   ).toFixed(1);
 
   return (
-    <Card className='col-span-4'>
+    <Card>
       <CardHeader className='flex flex-row items-center justify-between pb-2'>
         <div>
-          <CardTitle>Revenue Growth Trajectory</CardTitle>
+          <CardTitle>Industry Revenue Growth</CardTitle>
           <CardDescription>
-            Monthly revenue vs target and prior year
+            Aggregate monthly performance across surveyed startups
           </CardDescription>
         </div>
-        {onExpand && (
-          <Button variant='ghost' size='icon' onClick={onExpand}>
-            <IconEye className='h-4 w-4' />
-          </Button>
-        )}
       </CardHeader>
       <CardContent>
         <div className='mb-4 grid grid-cols-3 gap-4'>
@@ -89,7 +80,9 @@ export function RevenueGrowthChart({ onExpand }: RevenueGrowthChartProps) {
           </div>
           <div>
             <p className='text-muted-foreground text-sm'>YoY Growth</p>
-            <p className='text-2xl font-bold text-green-600'>+{yoyGrowth}%</p>
+            <p className='text-2xl font-bold'>
+              <span className='text-green-600'>+{yoyGrowth}%</span>
+            </p>
           </div>
         </div>
         <ChartContainer config={chartConfig} className='h-[300px] w-full'>
@@ -135,15 +128,15 @@ export function RevenueGrowthChart({ onExpand }: RevenueGrowthChartProps) {
               <Line
                 type='monotone'
                 dataKey='revenue'
-                stroke='hsl(var(--primary))'
-                strokeWidth={2}
-                dot={{ r: 4 }}
-                activeDot={{ r: 6 }}
+                stroke='var(--color-revenue)'
+                strokeWidth={3}
+                dot={{ r: 4, fill: 'var(--color-revenue)' }}
+                activeDot={{ r: 6, fill: 'var(--color-revenue)' }}
               />
               <Line
                 type='monotone'
                 dataKey='target'
-                stroke='hsl(var(--muted-foreground))'
+                stroke='var(--color-target)'
                 strokeDasharray='5 5'
                 strokeWidth={2}
                 dot={false}
@@ -151,10 +144,10 @@ export function RevenueGrowthChart({ onExpand }: RevenueGrowthChartProps) {
               <Line
                 type='monotone'
                 dataKey='lastYear'
-                stroke='hsl(var(--secondary))'
-                strokeWidth={1}
+                stroke='var(--color-lastYear)'
+                strokeWidth={2}
                 dot={false}
-                opacity={0.6}
+                opacity={0.7}
               />
             </LineChart>
           </ResponsiveContainer>
